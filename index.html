@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Mummy 💜</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-purple: #9b59b6;
+            --secondary-purple: #8e44ad;
+            --light-purple: #bb8fce;
+            --accent-purple: #d7bde2;
+            --bg-light: #faf7fc;
+            --bg-dark: #1a0a2e;
+            --text-light: #2c1341;
+            --text-dark: #f0e6f6;
+            --glow-color: #c39bd3;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            overflow-x: hidden;
+            background: var(--bg-light);
+            color: var(--text-light);
+            transition: background 0.5s ease, color 0.5s ease;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        body.dark-mode {
+            background: var(--bg-dark);
+            color: var(--text-dark);
+        }
+
+        /* Animated background particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.3;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--primary-purple);
+            border-radius: 50%;
+            animation: float-up 15s infinite ease-in-out;
+            opacity: 0;
+        }
+
+        @keyframes float-up {
+            0% {
+                transform: translateY(100vh) translateX(0) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100px) translateX(50px) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        /* Theme toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--primary-purple);
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(155, 89, 182, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(155, 89, 182, 0.6);
+        }
+
+        /* Main container */
+        .container {
+            display: flex;
+            height: 100vh;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Side galleries */
+        .gallery-column {
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+            padding: 20px 10px;
+        }
+
+        .gallery-scroll {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            animation: scroll-up 25s linear infinite;
+        }
+
+        .gallery-column.right .gallery-scroll {
+            animation: scroll-down 25s linear infinite;
+        }
+
+        @keyframes scroll-up {
+            from {
+                transform: translateY(0);
+            }
+            to {
+                transform: translateY(-50%);
+            }
+        }
+
+        @keyframes scroll-down {
+            from {
+                transform: translateY(-50%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .gallery-img {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(155, 89, 182, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0.9;
+        }
+
+        .gallery-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 35px rgba(155, 89, 182, 0.5);
+            opacity: 1;
+        }
+
+        /* Center content */
+        .center-content {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            position: relative;
+        }
+
+        .main-image-container {
+            position: relative;
+            margin-bottom: 40px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .main-image {
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 8px solid var(--primary-purple);
+            box-shadow: 0 0 60px var(--glow-color), 0 0 100px var(--glow-color);
+            animation: pulse-glow 3s ease-in-out infinite;
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% {
+                box-shadow: 0 0 60px var(--glow-color), 0 0 100px var(--glow-color);
+            }
+            50% {
+                box-shadow: 0 0 80px var(--primary-purple), 0 0 120px var(--light-purple);
+            }
+        }
+
+        /* Rotating ring around image */
+        .glow-ring {
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: -20px;
+            bottom: -20px;
+            border-radius: 50%;
+            border: 3px dashed var(--light-purple);
+            animation: rotate 20s linear infinite;
+            opacity: 0.5;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .message-container {
+            text-align: center;
+            animation: fade-in-up 1.5s ease-out;
+        }
+
+        @keyframes fade-in-up {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .main-message {
+            font-size: 3em;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary-purple), var(--secondary-purple), var(--light-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(155, 89, 182, 0.2);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% {
+                filter: brightness(1);
+            }
+            50% {
+                filter: brightness(1.2);
+            }
+        }
+
+        .sub-message {
+            font-size: 1.5em;
+            color: var(--secondary-purple);
+            font-style: italic;
+            margin-top: 15px;
+            opacity: 0.9;
+        }
+
+        body.dark-mode .sub-message {
+            color: var(--light-purple);
+        }
+
+        /* Confetti animation */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: var(--primary-purple);
+            position: absolute;
+            animation: confetti-fall 5s linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Horizontal scrolling galleries for mobile */
+        .gallery-row {
+            display: none;
+            overflow: hidden;
+            position: relative;
+            height: 200px;
+            margin: 20px 0;
+        }
+
+        .gallery-scroll-horizontal {
+            display: flex;
+            gap: 15px;
+            height: 100%;
+            animation: scroll-left 18s linear infinite;
+        }
+
+        .gallery-row.right .gallery-scroll-horizontal {
+            animation: scroll-right 18s linear infinite;
+        }
+
+        @keyframes scroll-left {
+            from {
+                transform: translateX(0);
+            }
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        @keyframes scroll-right {
+            from {
+                transform: translateX(-50%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        .gallery-img-horizontal {
+            height: 100%;
+            width: auto;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(155, 89, 182, 0.3);
+            flex-shrink: 0;
+        }
+
+        /* Responsive design */
+        @media (max-width: 1024px) {
+            .gallery-column {
+                flex: 0.8;
+            }
+
+            .main-image {
+                width: 280px;
+                height: 280px;
+            }
+
+            .main-message {
+                font-size: 2.2em;
+            }
+
+            .sub-message {
+                font-size: 1.2em;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                height: auto;
+                min-height: 100vh;
+            }
+
+            .gallery-column {
+                display: none;
+            }
+
+            .gallery-row {
+                display: block;
+            }
+
+            .center-content {
+                padding: 40px 20px;
+                flex: none;
+            }
+
+            .main-image {
+                width: 250px;
+                height: 250px;
+            }
+
+            .main-message {
+                font-size: 1.8em;
+            }
+
+            .sub-message {
+                font-size: 1em;
+            }
+        }
+
+        /* Hearts decoration */
+        .hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            color: var(--primary-purple);
+            opacity: 0;
+            animation: heart-float 8s ease-in infinite;
+        }
+
+        @keyframes heart-float {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-100px) scale(1.5);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" onclick="toggleTheme()">🌙 Toggle Theme</button>
+
+    <div class="particles" id="particles"></div>
+    <div class="hearts" id="hearts"></div>
+
+    <div class="container">
+        <!-- Left Gallery (Scrolling Up) -->
+        <div class="gallery-column left">
+            <div class="gallery-scroll" id="leftGallery"></div>
+        </div>
+
+        <!-- Center Content -->
+        <div class="center-content">
+            <div class="main-image-container">
+                <div class="glow-ring"></div>
+                <img src="Main.jpg" alt="Mummy" class="main-image">
+            </div>
+            <div class="message-container">
+                <h1 class="main-message">Happy Birthday, Mummy 💜</h1>
+                <p class="sub-message">I LOVE U, MUMMY.</p>
+                <p class="sub-message">Aur sab chiz ke liye sorry.</p>
+            </div>
+        </div>
+
+        <!-- Right Gallery (Scrolling Down) -->
+        <div class="gallery-column right">
+            <div class="gallery-scroll" id="rightGallery"></div>
+        </div>
+    </div>
+
+    <!-- Horizontal galleries for mobile -->
+    <div class="gallery-row left">
+        <div class="gallery-scroll-horizontal" id="leftGalleryMobile"></div>
+    </div>
+    <div class="gallery-row right">
+        <div class="gallery-scroll-horizontal" id="rightGalleryMobile"></div>
+    </div>
+
+    <script>
+        // Theme toggle
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const btn = document.querySelector('.theme-toggle');
+            btn.textContent = document.body.classList.contains('dark-mode') ? '☀️ Toggle Theme' : '🌙 Toggle Theme';
+        }
+
+        // Generate particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Generate hearts
+        const heartsContainer = document.getElementById('hearts');
+        setInterval(() => {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.textContent = '💜';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDuration = (Math.random() * 4 + 6) + 's';
+            heartsContainer.appendChild(heart);
+            
+            setTimeout(() => heart.remove(), 8000);
+        }, 2000);
+
+        // Shuffle array function
+        function shuffle(array) {
+            const arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        // Generate image galleries
+        const imageFiles = Array.from({length: 25}, (_, i) => `Img${i + 1}.jpg`);
+        const leftImages = shuffle(imageFiles);
+        const rightImages = shuffle(imageFiles);
+
+        // Populate left gallery (scrolling up)
+        const leftGallery = document.getElementById('leftGallery');
+        const leftImagesDouble = [...leftImages, ...leftImages]; // Duplicate for seamless loop
+        leftImagesDouble.forEach(img => {
+            const imgEl = document.createElement('img');
+            imgEl.src = img;
+            imgEl.className = 'gallery-img';
+            imgEl.alt = 'Memory';
+            leftGallery.appendChild(imgEl);
+        });
+
+        // Populate right gallery (scrolling down)
+        const rightGallery = document.getElementById('rightGallery');
+        const rightImagesDouble = [...rightImages, ...rightImages]; // Duplicate for seamless loop
+        rightImagesDouble.forEach(img => {
+            const imgEl = document.createElement('img');
+            imgEl.src = img;
+            imgEl.className = 'gallery-img';
+            imgEl.alt = 'Memory';
+            rightGallery.appendChild(imgEl);
+        });
+
+        // Populate mobile horizontal galleries
+        const leftGalleryMobile = document.getElementById('leftGalleryMobile');
+        const leftImagesMobileDouble = [...leftImages, ...leftImages];
+        leftImagesMobileDouble.forEach(img => {
+            const imgEl = document.createElement('img');
+            imgEl.src = img;
+            imgEl.className = 'gallery-img-horizontal';
+            imgEl.alt = 'Memory';
+            leftGalleryMobile.appendChild(imgEl);
+        });
+
+        const rightGalleryMobile = document.getElementById('rightGalleryMobile');
+        const rightImagesMobileDouble = [...rightImages, ...rightImages];
+        rightImagesMobileDouble.forEach(img => {
+            const imgEl = document.createElement('img');
+            imgEl.src = img;
+            imgEl.className = 'gallery-img-horizontal';
+            imgEl.alt = 'Memory';
+            rightGalleryMobile.appendChild(imgEl);
+        });
+
+        // Add subtle parallax effect on mouse move
+        document.addEventListener('mousemove', (e) => {
+            const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+            const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+            document.querySelector('.main-image-container').style.transform = 
+                `translate(${moveX}px, ${moveY}px)`;
+        });
+    </script>
+</body>
+</html>
